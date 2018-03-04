@@ -13,15 +13,15 @@ public class MainActivity extends ReactActivity {
         return "toutiao";
     }
 
-    @Override
-    protected onCreate(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-            }
-        }
-    }
+    // @Override
+    // protected onCreate(){
+    //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    //         if (!Settings.canDrawOverlays(this)) {
+    //             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+    //             Uri.parse("package:" + getPackageName()));
+    //             startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+    //         }
+    //     }
+    // }
 
 }

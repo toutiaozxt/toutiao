@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import {
-    Image,
+  Image,
   StyleSheet,
   Text,
   View
@@ -14,7 +14,6 @@ import {
 
 import ScrollableTabView , {DefaultTabBar,ScrollableTabBar}from 'react-native-scrollable-tab-view'
 import Swiper from 'react-native-swiper';
-
 import TabNavigator from 'react-native-tab-navigator'
 
 

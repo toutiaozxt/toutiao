@@ -109,13 +109,13 @@ export default class App extends Component {
                         </View>
                     </TabNavigator.Item>
                     <TabNavigator.Item
-                        selected={this.state.selectedTab === 'Test'}
-                        title="Test"
+                        selected={this.state.selectedTab === 'collect'}
+                        title="收藏"
                         titleStyle={styles.tabText}
                         selectedTitleStyle={styles.selectedTabText}
                         renderIcon={() => <Image style={styles.icon} source={require("./images/collect.png")} />}
                         renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/collectSelected.png")} />}
-                        onPress={() => this.setState({ selectedTab: 'Test' })}>
+                        onPress={() => this.setState({ selectedTab: 'collect' })}>
                         <View style={styles.page0}>
                             <Text style={{fontSize:18,color: 'blue'}}>This is test Page</Text>
                             <Test />
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     },
     page0: {
         flex: 1,
-        backgroundColor: '#f3f3f2',
+        backgroundColor: '#f3f3f2',     //乳白色
     },
     // page1: {
     //     flex: 1,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     },
     scrollNews: {
         flex: 0,
-        backgroundColor: '#38b48b',
+        backgroundColor: '#38b48b',     //绿色
         // margin: 20,
     },
     scrollVideo: {
@@ -167,12 +167,12 @@ const styles = StyleSheet.create({
     },
     tabText:{
         fontSize: 10,
-        color: '#515151',
+        color: '#515151',               //字体灰黑色
         fontWeight: 'bold',
     },
     selectedTabText:{
         fontSize: 12,
-        color: '#00a480',
+        color: '#00a480',               //字体绿色
         fontWeight: 'bold',
     },
     wrapper: {

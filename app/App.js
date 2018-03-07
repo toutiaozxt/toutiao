@@ -16,12 +16,16 @@ import ScrollableTabView , {DefaultTabBar,ScrollableTabBar}from 'react-native-sc
 import Swiper from 'react-native-swiper';
 import TabNavigator from 'react-native-tab-navigator'
 
+// import {StackNavigator,TabNavigator,DrawerNavigator} from react-navigation
+
+import Test from './component/Test'
+
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'Home'
+            selectedTab: 'News'
         }
     }
 
@@ -31,9 +35,9 @@ export default class App extends Component {
                 <TabNavigator>
                     <TabNavigator.Item
                         //设置选中的位置
-                        selected={this.state.selectedTab === 'Home'}
+                        selected={this.state.selectedTab === 'News'}
                         //标题
-                        title="首页"
+                        title="新闻"
                         //标题样式
                         titleStyle={styles.tabText}
                         //选中时标题文字样式
@@ -43,10 +47,10 @@ export default class App extends Component {
                         //选中时图标
                         renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
                         //点击Event
-                        onPress={() => this.setState({ selectedTab: 'Home' })}>
+                        onPress={() => this.setState({ selectedTab: 'News' })}>
                         <View style={styles.page0}>
                             <ScrollableTabView
-                                style={styles.container}
+                                style={styles.scroll}
                                 renderTabBar={() => <ScrollableTabBar />}
 
                                 >
@@ -61,6 +65,7 @@ export default class App extends Component {
                                 <Text tabLabel='Tab6'/>
                             </ScrollableTabView>
                             <Text style={{fontSize:18,padding:15,color: 'blue'}}>This is Home Page</Text>
+                            <View style={{clear:auto}}></View>
                         </View>
 
                     </TabNavigator.Item>
@@ -88,6 +93,19 @@ export default class App extends Component {
                         </View>
                     </TabNavigator.Item>
                     <TabNavigator.Item
+                        selected={this.state.selectedTab === 'Test'}
+                        title="Test"
+                        titleStyle={styles.tabText}
+                        selectedTitleStyle={styles.selectedTabText}
+                        renderIcon={() => <Image style={styles.icon} source={require("./images/icon1.png")} />}
+                        renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
+                        onPress={() => this.setState({ selectedTab: 'Test' })}>
+                        <View style={styles.page0}>
+                            <Text style={{fontSize:18,color: 'blue'}}>This is test Page</Text>
+                            <Test />
+                        </View>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
                         selected={this.state.selectedTab === 'Profile'}
                         title="我的"
                         titleStyle={styles.tabText}
@@ -95,7 +113,7 @@ export default class App extends Component {
                         renderIcon={() => <Image style={styles.icon} source={require("./images/icon1.png")} />}
                         renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
                         onPress={() => this.setState({ selectedTab: 'Profile' })}>
-                        <View style={styles.page1}>
+                        <View style={styles.page0}>
                             <Text style={{fontSize:18,padding:15,color: '#fff'}}>This is Profile Page</Text>
                         </View>
                     </TabNavigator.Item>
@@ -106,53 +124,61 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
+    container:{
+        flex:1
     },
-    tabText: {
+    scroll: {
+        height: 50,
+        backgroundColor: '#93ca76',
+        // margin: 20,
+    },
+    tabText:{
         fontSize: 10,
         color: 'black'
     },
-    selectedTabText: {
+    selectedTabText:{
         fontSize: 10,
-        color: 'red'
+        color: '#99cc33'
     },
     icon: {
         width: 32,
         height: 22
     },
+
     page0: {
         flex: 1,
-        backgroundColor: 'yellow'
+        backgroundColor: '#f3f3f2'
     },
-    page1: {
-        flex: 1,
-        backgroundColor: 'blue'
-    },
-    wrapper: {
-        height: 50,
-    },
-    slide1: {
-        flex: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#9DD6EB',
-    },
-    slide2: {
-        flex: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#97CAE5',
-    },
-    slide3: {
-        flex: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#92BBD9',
-    },
-    text: {
-        color: '#fff',
-        fontSize: 30,
-        fontWeight: 'bold',
-    },
+    // page1: {
+    //     flex: 1,
+    //     backgroundColor: 'blue'
+    // },
+    // wrapper: {
+    //     height: 50,
+    // },
+    // slide1: {
+    //     flex: 0,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     backgroundColor: '#9DD6EB',
+    // },
+    // slide2: {
+    //     flex: 0,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     backgroundColor: '#97CAE5',
+    // },
+    // slide3: {
+    //     flex: 0,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     backgroundColor: '#92BBD9',
+    // },
+    // text: {
+    //     color: '#fff',
+    //     fontSize: 30,
+    //     fontWeight: 'bold',
+    // },
+
+
 });

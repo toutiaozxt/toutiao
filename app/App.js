@@ -43,9 +43,9 @@ export default class App extends Component {
                         //选中时标题文字样式
                         selectedTitleStyle={styles.selectedTabText}
                         //图标
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/icon1.png")} />}
+                        renderIcon={() => <Image style={styles.icon} source={require("./images/news.png")} />}
                         //选中时图标
-                        renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
+                        renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/newsSelected.png")} />}
                         //点击Event
                         onPress={() => this.setState({ selectedTab: 'News' })}>
                         <View style={styles.page0}>
@@ -73,8 +73,8 @@ export default class App extends Component {
                         title="视频"
                         titleStyle={styles.tabText}
                         selectedTitleStyle={styles.selectedTabText}
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/icon1.png")} />}
-                        renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
+                        renderIcon={() => <Image style={styles.icon} source={require("./images/video.png")} />}
+                        renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/videoSelected.png")} />}
                         onPress={() => this.setState({ selectedTab: 'Video' })}>
                         <View style={styles.page0}>
                             <ScrollableTabView
@@ -113,8 +113,8 @@ export default class App extends Component {
                         title="Test"
                         titleStyle={styles.tabText}
                         selectedTitleStyle={styles.selectedTabText}
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/icon1.png")} />}
-                        renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
+                        renderIcon={() => <Image style={styles.icon} source={require("./images/collect.png")} />}
+                        renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/collectSelected.png")} />}
                         onPress={() => this.setState({ selectedTab: 'Test' })}>
                         <View style={styles.page0}>
                             <Text style={{fontSize:18,color: 'blue'}}>This is test Page</Text>
@@ -126,8 +126,8 @@ export default class App extends Component {
                         title="我的"
                         titleStyle={styles.tabText}
                         selectedTitleStyle={styles.selectedTabText}
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/icon1.png")} />}
-                        renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
+                        renderIcon={() => <Image style={styles.icon} source={require("./images/mine.png")} />}
+                        renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/mineSelected.png")} />}
                         onPress={() => this.setState({ selectedTab: 'Profile' })}>
                         <View style={styles.page0}>
                             <Text style={{fontSize:18,padding:15,color: '#fff'}}>This is Profile Page</Text>
@@ -151,6 +151,10 @@ const styles = StyleSheet.create({
     //     flex: 1,
     //     backgroundColor: 'blue'
     // },
+    icon: {
+        height: 22,
+        width: 22,
+    },
     scrollNews: {
         flex: 0,
         backgroundColor: '#38b48b',
@@ -160,18 +164,16 @@ const styles = StyleSheet.create({
         flex: 0,
         backgroundColor: '#f3f3f2',
         // margin: 20,
-    }
+    },
     tabText:{
         fontSize: 10,
-        color: '#1f3134'
+        color: '#515151',
+        fontWeight: 'bold',
     },
     selectedTabText:{
-        fontSize: 10,
-        color: '#00a480'
-    },
-    icon: {
-        width: 32,
-        height: 22
+        fontSize: 12,
+        color: '#00a480',
+        fontWeight: 'bold',
     },
     wrapper: {
         flex: 0,

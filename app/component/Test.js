@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
         flex:1,
     },
     item: {
+        color: '#1f3134',
         fontSize: 18,
         padding: 10,
         height: 100,

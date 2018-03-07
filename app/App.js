@@ -50,7 +50,7 @@ export default class App extends Component {
                         onPress={() => this.setState({ selectedTab: 'News' })}>
                         <View style={styles.page0}>
                             <ScrollableTabView
-                                style={styles.scroll}
+                                style={styles.scrollNews}
                                 renderTabBar={() => <ScrollableTabBar />}
 
                                 >
@@ -65,7 +65,6 @@ export default class App extends Component {
                                 <Text tabLabel='Tab6'/>
                             </ScrollableTabView>
                             <Text style={{fontSize:18,padding:15,color: 'blue'}}>This is Home Page</Text>
-                            <View style={{clear:auto}}></View>
                         </View>
 
                     </TabNavigator.Item>
@@ -78,18 +77,35 @@ export default class App extends Component {
                         renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/icon1.png")} />}
                         onPress={() => this.setState({ selectedTab: 'Video' })}>
                         <View style={styles.page0}>
+                            <ScrollableTabView
+                                style={styles.scrollVideo}
+                                renderTabBar={() => <ScrollableTabBar />}
+
+                                >
+                                <Text style={styles.textStyle} tabLabel='热点'/>
+                                <Text tabLabel='科技'/>
+                                <Text tabLabel='武汉'/>
+                                <Text tabLabel='Tab4'/>
+                                <Text tabLabel='Tab5'/>
+                                <Text tabLabel='Tab6'/>
+                                <Text tabLabel='Tab6'/>
+                                <Text tabLabel='Tab6'/>
+                                <Text tabLabel='Tab6'/>
+                            </ScrollableTabView>
+                            <View style={{flex: 0,height: 100}}>
+                                <Swiper style={styles.wrapper} showsButtons={false}>
+                                    <View style={styles.slide1}>
+                                        <Text style={styles.text}>Hello Swiper</Text>
+                                    </View>
+                                    <View style={styles.slide2}>
+                                        <Text style={styles.text}>Beautiful</Text>
+                                    </View>
+                                    <View style={styles.slide3}>
+                                        <Text style={styles.text}>And simple</Text>
+                                    </View>
+                                </Swiper>
+                            </View>
                             <Text style={{fontSize:18,padding:15,color: 'blue'}}>This is Video Page</Text>
-                            <Swiper style={styles.wrapper} showsButtons={false}>
-                                <View style={styles.slide1}>
-                                    <Text style={styles.text}>Hello Swiper</Text>
-                                </View>
-                                <View style={styles.slide2}>
-                                    <Text style={styles.text}>Beautiful</Text>
-                                </View>
-                                <View style={styles.slide3}>
-                                    <Text style={styles.text}>And simple</Text>
-                                </View>
-                            </Swiper>
                         </View>
                     </TabNavigator.Item>
                     <TabNavigator.Item
@@ -127,58 +143,66 @@ const styles = StyleSheet.create({
     container:{
         flex:1
     },
-    scroll: {
-        height: 50,
-        backgroundColor: '#93ca76',
-        // margin: 20,
-    },
-    tabText:{
-        fontSize: 10,
-        color: 'black'
-    },
-    selectedTabText:{
-        fontSize: 10,
-        color: '#99cc33'
-    },
-    icon: {
-        width: 32,
-        height: 22
-    },
-
     page0: {
         flex: 1,
-        backgroundColor: '#f3f3f2'
+        backgroundColor: '#f3f3f2',
     },
     // page1: {
     //     flex: 1,
     //     backgroundColor: 'blue'
     // },
-    // wrapper: {
-    //     height: 50,
-    // },
-    // slide1: {
-    //     flex: 0,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     backgroundColor: '#9DD6EB',
-    // },
-    // slide2: {
-    //     flex: 0,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     backgroundColor: '#97CAE5',
-    // },
-    // slide3: {
-    //     flex: 0,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     backgroundColor: '#92BBD9',
-    // },
-    // text: {
-    //     color: '#fff',
-    //     fontSize: 30,
-    //     fontWeight: 'bold',
-    // },
+    scrollNews: {
+        flex: 0,
+        backgroundColor: '#38b48b',
+        // margin: 20,
+    },
+    scrollVideo: {
+        flex: 0,
+        backgroundColor: '#f3f3f2',
+        // margin: 20,
+    }
+    tabText:{
+        fontSize: 10,
+        color: '#1f3134'
+    },
+    selectedTabText:{
+        fontSize: 10,
+        color: '#00a480'
+    },
+    icon: {
+        width: 32,
+        height: 22
+    },
+    wrapper: {
+        flex: 0,
+        height: 150,
+    },
+    slide1: {
+        flex: 0,
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#9DD6EB',
+    },
+    slide2: {
+        height: 100,
+        flex: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#97CAE5',
+    },
+    slide3: {
+        flex: 0,
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#92BBD9',
+    },
+    text: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
 
 
 });

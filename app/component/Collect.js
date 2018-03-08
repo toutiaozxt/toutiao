@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 
-export default class Test extends Component {
+export default class Collect extends Component {
     // constructor(){
     //     super(props);
 
@@ -29,7 +29,7 @@ export default class Test extends Component {
                         {key: 'zxtlkjlkjlkjlkljkjljlkjlkjlkjlkjlklkjlkjlkjlkljlk4'},
                         {key: 'zxt4nnkjlknlknlkjlkjlkjlklkjlkjlkjlknlknlkmlkjlkjlklm'},
                         {key: 'zxtnjlklnlkjklm,nkjkjbkljlknkn4'},
-                        {key: 'zxt4'},
+                        {key: 'zxt3'},
                         {key: 'zxt4'}
                     ]}
                     renderItem={({item})=><Text style={styles.item}>{item.key}</Text>}

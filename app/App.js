@@ -18,7 +18,7 @@ import TabNavigator from 'react-native-tab-navigator'
 
 // import {StackNavigator,TabNavigator,DrawerNavigator} from react-navigation
 
-import Test from './component/Test'
+import Collect from './component/Collect'
 
 
 export default class App extends Component {
@@ -118,7 +118,7 @@ export default class App extends Component {
                         onPress={() => this.setState({ selectedTab: 'collect' })}>
                         <View style={styles.page0}>
                             <Text style={{fontSize:18,color: 'blue'}}>This is test Page</Text>
-                            <Test />
+                            <Collect />
                         </View>
                     </TabNavigator.Item>
                     <TabNavigator.Item
@@ -147,10 +147,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f3f3f2',     //乳白色
     },
-    // page1: {
-    //     flex: 1,
-    //     backgroundColor: 'blue'
-    // },
     icon: {
         height: 22,
         width: 22,

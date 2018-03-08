@@ -18,6 +18,7 @@ import TabNavigator from 'react-native-tab-navigator'
 
 // import {StackNavigator,TabNavigator,DrawerNavigator} from react-navigation
 
+import News from './component/News'
 import Collect from './component/Collect'
 
 
@@ -49,24 +50,9 @@ export default class App extends Component {
                         //点击Event
                         onPress={() => this.setState({ selectedTab: 'News' })}>
                         <View style={styles.page0}>
-                            <ScrollableTabView
-                                style={styles.scrollNews}
-                                renderTabBar={() => <ScrollableTabBar />}
-
-                                >
-                                <Text style={styles.textStyle} tabLabel='热点'/>
-                                <Text tabLabel='科技'/>
-                                <Text tabLabel='武汉'/>
-                                <Text tabLabel='Tab4'/>
-                                <Text tabLabel='Tab5'/>
-                                <Text tabLabel='Tab6'/>
-                                <Text tabLabel='Tab6'/>
-                                <Text tabLabel='Tab6'/>
-                                <Text tabLabel='Tab6'/>
-                            </ScrollableTabView>
-                            <Text style={{fontSize:18,padding:15,color: 'blue'}}>This is Home Page</Text>
+                            <News/>
+                            <Text style={{fontSize:18,padding:15,color: 'blue',borderWidth: 1}}>This is Home Page</Text>
                         </View>
-
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'Video'}
@@ -150,11 +136,6 @@ const styles = StyleSheet.create({
     icon: {
         height: 22,
         width: 22,
-    },
-    scrollNews: {
-        flex: 0,
-        backgroundColor: '#38b48b',     //绿色
-        // margin: 20,
     },
     scrollVideo: {
         flex: 0,

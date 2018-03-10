@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     scrollVideo: {
         flex: 0,
-        backgroundColor: '#f3f3f2',
+        backgroundColor: '#f3f3f2',        //背景乳白色
         // margin: 20,
     },
     tabText:{

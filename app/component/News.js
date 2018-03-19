@@ -27,7 +27,7 @@ export default class News extends Component{
               style={styles.scrollNews}
               renderTabBar={() => <ScrollableTabBar />}
               tabBarPosition= 'overlayTop'
-              onChangeTab={(obj)=>{console.log('index:'+obj.i,_onpress())}}          //选中tab获取下标
+              onChangeTab={(obj)=>{console.log('index:'+obj.i)}}          //选中tab获取下标
               initialPage={0}                     //起始页下标
               onScroll={(position) => {console.log('scroll pposition:' + position)}}   //float类型
               tabBarUnderlineStyle={styles.lineStyle}
@@ -69,7 +69,7 @@ const styles= StyleSheet.create({
   },
   lineStyle: {
         backgroundColor: '#515151',
-        // width: 10,
+        width: 0,
         alignItems: 'center',
         height: 4,
   },

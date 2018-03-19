@@ -56,6 +56,11 @@ export default class News extends Component{
                         </View>
                     </Swiper>
                 </View>
+                <FlatList
+                
+                />
+                
+
             </View>
         );
     }

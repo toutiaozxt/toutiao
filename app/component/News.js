@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList
+  FlatList,
+  TextInput
 } from 'react-native';
 
 import ScrollableTabView , {DefaultTabBar,ScrollableTabBar}from 'react-native-scrollable-tab-view'
@@ -15,9 +16,10 @@ import ScrollableTabView , {DefaultTabBar,ScrollableTabBar}from 'react-native-sc
 
 
 export default class News extends Component{
-  // constructor(){
-
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {text: ''};
+  }
 
 
   render(){
@@ -44,6 +46,18 @@ export default class News extends Component{
               <Text tabLabel='Tab6'/>
               <Text tabLabel='Tab6'/>
           </ScrollableTabView>
+          <View style={styles.searchBar}>
+              <Image style={{height:20,width:20}} source={require("../images/search.png")} />
+              <TextInput
+                style={styles.searchBarInput}
+                placeholder="请在这里输入您想搜索的内容!"
+                onChangeText={(text) => this.setState({text})}
+                underlineColorAndroid='transparent'
+              />
+              {/*<Text style={{padding: 10, fontSize: 42}}>
+                {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+              </Text>*/}
+          </View>
           <View></View>
       </View>
     );
@@ -73,4 +87,24 @@ const styles= StyleSheet.create({
         alignItems: 'center',
         height: 4,
   },
+  searchBar: {
+    height: 40,
+    alignItems: 'center',
+    paddingLeft: 5,
+    paddingRight: 5,
+    flexDirection: 'row',
+    borderColor: '#515151',
+    borderWidth: 2,
+    borderRadius: 8,
+    margin: 2,
+    marginLeft: 4,
+    marginRight: 4,
+  },
+  searchBarInput: {
+    fontSize: 16,
+    alignSelf: 'auto',
+    height: 39,
+    width: 370,
+    // backgroundColor: 'red',
+  }
 })

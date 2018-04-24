@@ -1,124 +1,48 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
-import React, { Component } from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-// import ScrollableTabView , {DefaultTabBar,ScrollableTabBar}from 'react-native-scrollable-tab-view'
-import TabNavigator from 'react-native-tab-navigator'
-
-// import {StackNavigator,TabNavigator,DrawerNavigator} from react-navigation
-
-import News from './component/News'
-import Video from './component/Video'
-import Collect from './component/Collect'
+import HomeScreen from './screen/HomeScreen'
+import NewsScreen from './screen/NewsScreen'
+import CollectScreen from './screen/CollectScreen'
+import SetScreen from './screen/SetScreen'
+import {StackNavigator} from 'react-navigation';
 
 
-export default class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedTab: 'News'
+export default App = StackNavigator({
+  homeScreen: {
+    screen: HomeScreen,
+    navigationOptions: {
+      cardStack: {gesturesEnabled: true},
+      header: null,
+    }
+  },
+  newsScreen: {
+    screen: NewsScreen,
+    // path:'http://3g.163.com/news/18/0419/20/DFPJ1H8900018AOQ.html',
+    // navigationOptions: {
+    //   // title: 'welcome',
+    //   cardStack: {gesturesEnabled: true},
+    //   // header: 
+
+    // }
+  },
+  // collectScreen: {
+  //   screen: CollectScreen,
+  // },
+  // setScreen: {
+  //   screen: SetScreen,
+  // }
+}, {
+    initialRouteName: 'homeScreen', // 默认显示界面
+    navigationOptions: {  // 屏幕导航的默认选项, 也可以在组件内用 static navigationOptions 设置(会覆盖此处的设置)
+        // header: 
+        cardStack: {
+            gesturesEnabled: true
         }
-    }
+    }, 
+    mode: 'card',  // 页面切换模式, 左右是card(相当于iOS中的push效果), 上下是modal(相当于iOS中的modal效果)
+    cardStyle: {backgroundColor: '#f3f3f2'},
+    headerMode: 'screen', // 导航栏的显示模式, screen: 有渐变透明效果, float: 无透明效果, none: 隐藏导航栏
+    // onTransitionStart: ()=>{ console.log('导航栏切换开始'); },  // 回调
+    // onTransitionEnd: ()=>{ console.log('导航栏切换结束'); }  // 回调
+});
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <TabNavigator>
-                    <TabNavigator.Item
-                        //设置选中的位置
-                        selected={this.state.selectedTab === 'News'}
-                        //标题
-                        title="新闻"
-                        //标题样式
-                        titleStyle={styles.tabText}
-                        //选中时标题文字样式
-                        selectedTitleStyle={styles.selectedTabText}
-                        //图标
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/news.png")} />}
-                        //选中时图标
-                        renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/newsSelected.png")} />}
-                        //点击Event
-                        onPress={() => this.setState({ selectedTab: 'News' })}>
-                        <View style={styles.page0}>
-                            <News/>
-                            <Text style={{fontSize:18,padding:15,color: 'blue',borderWidth: 1}}>This is Home Page</Text>
-                        </View>
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'Video'}
-                        title="视频"
-                        titleStyle={styles.tabText}
-                        selectedTitleStyle={styles.selectedTabText}
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/video.png")} />}
-                        renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/videoSelected.png")} />}
-                        onPress={() => this.setState({ selectedTab: 'Video' })}>
-                        <View style={styles.page0}>
-                            <Video/>
-                            <Text style={{fontSize:18,padding:15,color: 'blue'}}>This is Video Page</Text>
-                        </View>
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'collect'}
-                        title="收藏"
-                        titleStyle={styles.tabText}
-                        selectedTitleStyle={styles.selectedTabText}
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/collect.png")} />}
-                        renderSelectedIcon={() =>  <Image style={[styles.icon]} source={require("./images/collectSelected.png")} />}
-                        onPress={() => this.setState({ selectedTab: 'collect' })}>
-                        <View style={styles.page0}>
-                            <Text style={{fontSize:18,color: 'blue'}}>This is test Page</Text>
-                            <Collect />
-                        </View>
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'Profile'}
-                        title="我的"
-                        titleStyle={styles.tabText}
-                        selectedTitleStyle={styles.selectedTabText}
-                        renderIcon={() => <Image style={styles.icon} source={require("./images/mine.png")} />}
-                        renderSelectedIcon={() => <Image style={[styles.icon]} source={require("./images/mineSelected.png")} />}
-                        onPress={() => this.setState({ selectedTab: 'Profile' })}>
-                        <View style={styles.page0}>
-                            <Text style={{fontSize:18,padding:15,color: '#fff'}}>This is Profile Page</Text>
-                        </View>
-                    </TabNavigator.Item>
-                </TabNavigator>
-            </View>
-        );
-    }
-}
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1
-    },
-    page0: {
-        flex: 1,
-        backgroundColor: '#f3f3f2',     //乳白色
-    },
-    icon: {
-        height: 22,
-        width: 22,
-    },
-    
-    tabText:{
-        fontSize: 10,
-        color: '#515151',               //字体灰黑色
-        fontWeight: 'bold',
-    },
-    selectedTabText:{
-        fontSize: 12,
-        color: '#00a480',               //字体绿色
-        fontWeight: 'bold',
-    },
-})

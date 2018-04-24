@@ -1,179 +1,194 @@
+import React, { PureComponent } from 'react';
+import { FlatList, TouchableOpacity, Text, View, TextInput } from 'react-native';
+// import CustomToastAndroid from '../../../js/ToastAndroid';
 
+export default class FlatListBasic extends PureComponent {
+    dataContainer = [];
 
+    constructor(props) {
+        super(props);
 
-// import React, { Component } from 'react';
-// import {
-//   Image,
-//   StyleSheet,
-//   Text,
-//   View,
-//   FlatList
-// } from 'react-native';
-
-
-// export default class Collect extends Component {
-//     constructor(){
-//         super(props);
-
-//     }
-
-//     render(){
-//         return (
-//             <View style={styles.container}>
-//                 <FlatList
-//                     data={[
-//                         {key: 'zx1'},
-//                         {key: 'zxt2'},
-//                         {key: 'zxt3'},
-//                         {key: 'zxt4jlkjlkjljlkjlkjlkjkjljkjlkjlkjlkjkjlkjlkjlkjljkj'},
-//                         {key: 'zxtlkjlkjlkjlkljkjljlkjlkjlkjlkjlklkjlkjlkjlkljlk4'},
-//                         {key: 'zxt4nnkjlknlknlkjlkjlkjlklkjlkjlkjlknlknlkmlkjlkjlklm'},
-//                         {key: 'zxtnjlklnlkjklm,nkjkjbkljlknkn4'},
-//                         {key: 'zxt3'},
-//                         {key: 'zxt4'}
-//                     ]}
-//                     onpress= {()=>_openNews()} 
-//                     renderItem={({item})=><Text style={styles.item}>{item.key}</Text>}
-//                     scrollToIndex= {{index: 0}}
-//                 />
-//             </View>
-//         );
-//     }
-
-
-
-//     _openNews(){
-
-//     }
-// }
-
-
-// const styles = StyleSheet.create({
-//     container:{
-//         flex:1,
-//     },
-//     item: {
-//         color: '#1f3134',
-//         fontSize: 18,
-//         paddingBottom: 20,
-//         paddingTop: 20,
-//         height: 90,
-//         // backgroundColor: '#4169e1',
-
-//         marginLeft: 16,
-//         marginRight: 16,
-//         borderBottomWidth: 1,
-//         // borderWidth: 2
-//         // borderRidus: 5,
-//     }
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, {Component} from 'react';
-import {
-    StyleSheet,
-    View,
-    FlatList,
-    Text,
-    Button,
-} from 'react-native';
-
-var ITEM_HEIGHT = 10;
-
-export default class FlatListDemo extends Component {
-
-    // _flatList;
-
-    _empty = (item) => {
-        return<Text>这是空的</Text>
+        this.state = {
+            sourceData : []
+            ,selected: (new Map(): Map<String, boolean>)
+            ,refreshing: false
+            ,indexText: ''
+        }
     }
 
-    _renderItem = (item) => {
-        var txt = '第' + item.index + '个' + ' title=' + item.item.title;
-        var bgColor = item.index % 2 == 0 ? 'red' : 'blue';
-        return <Text style={[{flex:1,height:ITEM_HEIGHT,backgroundColor:bgColor},styles.txt]}>{txt}</Text>
-    }
+    componentDidMount() {
+        // 初始化数据
+        for (let i = 0; i < 20; i ++) {
+            let obj = {
+                id: i
+                ,title: i + '只柯基'
+            };
 
-    _header = () => {
-        return <Text style={[styles.txt,{backgroundColor:'black'}]}>这是头部</Text>;
-    }
-
-    _footer = () => {
-        return <Text style={[styles.txt,{backgroundColor:'black'}]}>这是尾部</Text>;
-    }
-
-    _separator = () => {
-        return <View style={{height:2,backgroundColor:'yellow'}}/>;
-    }
-
-    render() {
-        var data = [];
-        for (var i = 0; i < 100; i++) {
-            data.push({key: i, title: i + '1122'});
+            this.dataContainer.push(obj);
         }
 
-        return (
-            <View style={{flex:1}}>
-                <Button title='滚动到指定位置' onPress={()=>{
-                    //this._flatList.scrollToEnd();
-                    //this._flatList.scrollToIndex({viewPosition:0,index:8});
-                    this._flatList.scrollToOffset({animated: true, offset: 1800});
-                }}/>
-                <View style={{flex:1}}>
-                    <FlatList
-                        ref={(flatList)=>this._flatList = flatList}
-                        ListEmptyComponent={this._empty}   //列表为空时渲染这个
-                        ListHeaderComponent={this._header}
-                        ListFooterComponent={this._footer}
-                        ItemSeparatorComponent={this._separator}
-                        renderItem={this._renderItem}
+        this.setState({
+            sourceData: this.dataContainer
+        });
+    }
 
-                        //numColumns ={3}
-                        //columnWrapperStyle={{borderWidth:2,borderColor:'black',paddingLeft:20}}
+    /**
+     * 此函数用于为给定的item生成一个不重复的Key。
+     * Key的作用是使React能够区分同类元素的不同个体，以便在刷新时能够确定其变化的位置，减少重新渲染的开销。
+     * 若不指定此函数，则默认抽取item.key作为key值。若item.key也不存在，则使用数组下标
+     *
+     * @param item
+     * @param index
+     * @private
+     */
+    _keyExtractor = (item, index) => index;
 
-                        //horizontal={true}
+    /**
+     * 使用箭头函数防止不必要的re-render；
+     * 如果使用bind方式来绑定onPressItem，每次都会生成一个新的函数，导致props在===比较时返回false，
+     * 从而触发自身的一次不必要的重新render，也就是FlatListItem组件每次都会重新渲染。
+     *
+     * @param id
+     * @private
+     */
+    _onPressItem = (id: string) => {
+        this.setState((state) => {
+            const selected = new Map(state.selected);
+            selected.set(id, !selected.get(id));
+            return {selected}
+        });
 
-                        //getItemLayout={(data,index)=>(
-                        //{length: ITEM_HEIGHT, offset: (ITEM_HEIGHT+2) * index, index}
-                        //)}
+        // CustomToastAndroid.show(JSON.stringify(id), CustomToastAndroid.SHORT);
+    };
 
-                        //onEndReachedThreshold={5}
-                        //onEndReached={(info)=>{
-                        //console.warn(info.distanceFromEnd);
-                        //}}
+    // 跳转到指定位置
+    _doActionToItem = () => {
+        // viewPosition: 指定选定行显示的位置，0代表top，0.5代表middle，1代表bottom
+        this.flatList.scrollToIndex({ viewPosition: 0, index: this.state.indexText });
+    };
 
-                        //onViewableItemsChanged={(info)=>{
-                        //console.warn(info);
-                        //}}
-                        data={data}>
-                    </FlatList>
-                </View>
+    // 跳转到内容最底端
+    _doActionToBottom = () => {
+        this.flatList.scrollToEnd();
+    };
 
-            </View>
+    // Header布局
+    _renderHeader = () => (
+        <View style={{ flexDirection:'row' }}>
+            <TextInput
+                style={{ height:50, flex:1 }}
+                placeholder='请输入行号'
+                onChangeText={ (text)=> {this.setState({ indexText: text })} }
+            />
+            <TouchableOpacity
+                onPress={ this._doActionToItem }
+                style={{ height:50, width:90, backgroundColor:'green', justifyContent:'center', alignItems:'center' }}
+            >
+                <Text style={{ color:'#fff' }}>跳转到指定行</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={ this._doActionToBottom }
+                style={{ height:50, width:90, backgroundColor:'red', justifyContent:'center', alignItems:'center' }}
+            >
+                <Text style={{ color:'#fff' }}>跳转到底部</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
+    // Footer布局
+    _renderFooter = () => (
+        <View><Text>Footer</Text></View>
+    );
+
+    // 自定义分割线
+    _renderItemSeparatorComponent = ({highlighted}) => (
+        <View style={{ height:1, backgroundColor:'#000' }}></View>
+    );
+
+    // 空布局
+    _renderEmptyView = () => (
+        <View><Text>EmptyView</Text></View>
+    );
+
+    // 下拉刷新
+    _renderRefresh = () => {
+        this.setState({refreshing: true})//开始刷新
+        //这里模拟请求网络，拿到数据，3s后停止刷新
+        setTimeout(() => {
+            // CustomToastAndroid.show('没有可刷新的内容！', CustomToastAndroid.SHORT);
+            this.setState({refreshing: false});
+        }, 3000);
+    };
+
+    // 上拉加载更多
+    _onEndReached = () => {
+        let newData = [];
+
+        for (let i = 20; i < 30; i ++) {
+            let obj = {
+                id: i
+                ,title: i + '生了只小柯基'
+            };
+
+            newData.push(obj);
+        }
+
+        this.dataContainer = this.dataContainer.concat(newData);
+        this.setState({
+            sourceData: this.dataContainer
+        });
+    };
+
+    _renderItem = ({item}) =>{
+        return(
+            <FlatListItem
+                id={item.id}
+                onPressItem={ this._onPressItem }
+                selected={ !!this.state.selected.get(item.id) }
+                title={ item.title }
+            />
+        );
+    };
+
+    render() {
+        return(
+            <FlatList
+                ref={ ref => this.flatList = ref }
+                data={ this.state.sourceData }
+                extraData={ this.state.selected }
+                keyExtractor={ this._keyExtractor }
+                renderItem={ this._renderItem }
+                // 决定当距离内容最底部还有多远时触发onEndReached回调；数值范围0~1，例如：0.5表示可见布局的最底端距离content最底端等于可见布局一半高度的时候调用该回调
+                onEndReachedThreshold={0.1}
+                // 当列表被滚动到距离内容最底部不足onEndReacchedThreshold设置的距离时调用
+                onEndReached={ this._onEndReached }
+                ListHeaderComponent={ this._renderHeader }
+                ListFooterComponent={ this._renderFooter }
+                ItemSeparatorComponent={ this._renderItemSeparatorComponent }
+                ListEmptyComponent={ this._renderEmptyView }
+                refreshing={ this.state.refreshing }
+                onRefresh={ this._renderRefresh }
+                // 是一个可选的优化，用于避免动态测量内容；+50是加上Header的高度
+                getItemLayout={(data, index) => ( { length: 40, offset: (40 + 1) * index + 50, index } )}
+            />
         );
     }
 }
 
-const styles = StyleSheet.create({
-    txt: {
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        color: 'white',
-        fontSize: 30,
+class FlatListItem extends React.PureComponent {
+    _onPress = () => {
+        this.props.onPressItem(this.props.id);
+    };
+
+    render() {
+        return(
+            <TouchableOpacity
+                {...this.props}
+                onPress={this._onPress}
+                style={{ height: 40, justifyContent: 'center', alignItems: 'center' }}
+            >
+                <Text>{this.props.title}</Text>
+            </TouchableOpacity>
+        );
     }
-});
+}
